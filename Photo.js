@@ -41,7 +41,7 @@ export default class BadInstagramCloneApp extends Component {
       const options = { quality: 0.5, base64: true };
       const data = await this.camera.takePictureAsync(options)
       console.log(':_____________:');
-      console.log(data.base64);
+      this.props.onPhoto(data.base64);
     }
   };
 }

@@ -19,11 +19,34 @@ const instructions = Platform.select({
 
 type Props = {};
 export default class App extends Component<Props> {
+
+  constructor() {
+    super()
+    this.state = { hasPhoto: false }
+  }
+
+  onPhoto = (base64) => {
+    this.setState({ hasPhoto: true })
+  }
+
+  getInitialState() {
+    return {
+      hasPhoto: false
+    }
+  }
+
   render() {
-    console.log('_____________________asdad___________________')
-    return (
-      <Photo />
-    );
+    if (!this.state.hasPhoto) {
+      return (
+        <Photo
+          onPhoto={this.onPhoto}
+        />
+      );
+    } else {
+      return (
+        <View><Text>Holi</Text></View>
+      );
+    }
   }
 }
 
