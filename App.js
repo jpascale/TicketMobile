@@ -9,6 +9,8 @@
 import React, { Component } from 'react';
 import { Platform, StyleSheet, Text, View } from 'react-native';
 import Photo from './Photo';
+import Form from './Form';
+import Confirmation from './Confirmation';
 
 const instructions = Platform.select({
   ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
@@ -22,17 +24,16 @@ export default class App extends Component<Props> {
 
   constructor() {
     super()
-    this.state = { hasPhoto: false }
+    this.state = { hasPhoto: false, base64: null, sent: false }
   }
 
   onPhoto = (base64) => {
-    this.setState({ hasPhoto: true })
+    this.setState({ hasPhoto: true, base64 });
   }
 
-  getInitialState() {
-    return {
-      hasPhoto: false
-    }
+  onSend = (data) => {
+    console.log(data);
+    this.setState({ sent: true })
   }
 
   render() {
@@ -43,28 +44,20 @@ export default class App extends Component<Props> {
         />
       );
     } else {
-      return (
-        <View><Text>Holi</Text></View>
-      );
+      if (!this.state.sent) {
+        return (
+          <Form
+            base64={this.state.base64}
+            onSend={this.onSend} />
+        );
+      } else {
+        return (
+          <Confirmation />
+        );
+      }
+
+
     }
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
-});
