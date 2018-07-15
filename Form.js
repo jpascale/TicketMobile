@@ -32,17 +32,23 @@ export default class Form extends React.Component {
           onChangeText={(text) => { this.setState({ cost: text }) }}
         />
 
-        <FormLabel>Rubro</FormLabel>
+        {/* <FormLabel>Rubro</FormLabel>
         <FormInput
           onChangeText={(text) => { this.setState({ kind: text }) }}
+        /> */}
+
+        <FormLabel>Fecha</FormLabel>
+        <FormInput
+          onChangeText={(text) => { this.setState({ date: text }) }}
         />
 
         <Button
           onPress={() => {
             this.props.onSend({
-              description: this.description,
-              cost: this.cost,
-              kind: this.kind
+              description: this.state.description,
+              price: this.state.cost,
+             // kind: this.state.kind,
+              date: this.state.date
             })
           }}
           title="Enviar"
